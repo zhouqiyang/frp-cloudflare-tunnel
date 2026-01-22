@@ -23,10 +23,10 @@ COPY --from=cloudflared /usr/local/bin/cloudflared /usr/local/bin/
 ARG ARCH=amd64
 
 # 下载并安装frps
-RUN wget https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_linux_${ARCH}.tar.gz \
-    && tar -xzf frp_0.61.2_linux_${ARCH}.tar.gz \
-    && mv frp_0.61.2_linux_${ARCH}/frps /frp/ \
-    && rm -rf frp_0.61.2_linux_${ARCH}* \
+RUN wget https://github.com/fatedier/frp/releases/download/v0.66.0/frp_0.66.0_linux_${ARCH}.tar.gz \
+    && tar -xzf frp_0.66.0_linux_${ARCH}.tar.gz \
+    && mv frp_0.66.0_linux_${ARCH}/frps /frp/ \
+    && rm -rf frp_0.66.0_linux_${ARCH}* \
     && chmod +x /frp/frps
 
 # 复制frps配置文件
@@ -52,6 +52,7 @@ EXPOSE 8889
 # 启动supervisor
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
 
 
 
