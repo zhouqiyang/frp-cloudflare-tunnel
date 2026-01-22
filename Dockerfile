@@ -1,5 +1,5 @@
 # 使用官方cloudflared镜像作为基础
-FROM cloudflare/cloudflared:2025.4.0 AS cloudflared
+FROM cloudflare/cloudflared:latest AS cloudflared
 
 # 使用debian作为最终镜像
 FROM debian:bullseye-slim
@@ -52,3 +52,4 @@ EXPOSE 8889
 # 启动supervisor
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
