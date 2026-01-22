@@ -30,7 +30,13 @@ RUN wget https://github.com/fatedier/frp/releases/download/v0.61.2/frp_0.61.2_li
     && chmod +x /frp/frps
 
 # 复制frps配置文件
+ARG FRPS_BINDPORT=7000
+ARG FRPS_HTTPPORT=8080
+ARG FRPS_AUTHTOKEN=frp-cloudflare-tunnel
 COPY frps.toml /frp/
+RUN sed -i 's/bindPort = 7000/bindPort = ${FRPS_BINDPORT}/g' /frp/frps.toml
+RUN sed -i 's/vhostHTTPPort = 8080/vhostHTTPPort = ${FRPS_BINDPORT}/g' /frp/frps.toml
+RUN sed -i 's/auth.token = "frp-cloudflare-tunnel"/auth.token = "${FRPS_AUTHTOKEN}"/g' /frp/frps.toml
 
 # 复制scripts脚本
 COPY scripts/health_server.py /scripts/health_server.py
@@ -44,4 +50,5 @@ COPY supervisord.conf /etc/supervisor/conf.d/
 EXPOSE 8889
 
 # 启动supervisor
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
