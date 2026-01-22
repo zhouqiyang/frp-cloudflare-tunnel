@@ -36,7 +36,7 @@ ARG FRPS_AUTHTOKEN=frp-cloudflare-tunnel
 COPY frps.toml /frp/
 RUN sed -i 's/bindPort = 7000/bindPort = '"${FRPS_BINDPORT}"'/g' /frp/frps.toml
 RUN sed -i 's/vhostHTTPPort = 8080/vhostHTTPPort = '"${FRPS_HTTPPORT}"'/g' /frp/frps.toml
-RUN sed -i 's/auth.token = "frp-cloudflare-tunnel"/auth.token = '"${FRPS_AUTHTOKEN}"'/g' /frp/frps.toml
+RUN sed -i 's/auth.token = "frp-cloudflare-tunnel"/auth.token = "'${FRPS_AUTHTOKEN}'"/g' /frp/frps.toml
 
 # 复制scripts脚本
 COPY scripts/health_server.py /scripts/health_server.py
@@ -52,6 +52,7 @@ EXPOSE 8889
 # 启动supervisor
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
 
 
 
