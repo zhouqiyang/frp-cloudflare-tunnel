@@ -38,5 +38,5 @@ check_frps
 
 # 输出健康检查完成时间
 echo "Health check completed at $(date '+%Y-%m-%d %H:%M:%S')" >> $LOG_FILE
-echo "Service started at $(date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S") and has been running for $(cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("%ddays,%dhours,%dminutes%dseconds\n",run_days,run_hour,run_minute,run_second)}')"
+echo "Service started at $(date -d "$(awk -F. '{print $1}' /proc/uptime) second ago" +"%Y-%m-%d %H:%M:%S") and has been running for $(cat /proc/uptime| awk -F. '{run_days=$1 / 86400;run_hour=($1 % 86400)/3600;run_minute=($1 % 3600)/60;run_second=$1 % 60;printf("%ddays,%dhours,%dminutes%dseconds\n",run_days,run_hour,run_minute,run_second)}')" >> $LOG_FILE
 cat $LOG_FILE
