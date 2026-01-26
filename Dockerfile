@@ -39,6 +39,7 @@ ARG FRPS_AUTHTOKEN=frp-cloudflare-tunnel
 COPY frps.toml /frp/
 RUN sed -i 's/bindPort = 7000/bindPort = '"${FRPS_BINDPORT}"'/g' /frp/frps.toml
 RUN sed -i 's/vhostHTTPPort = 8080/vhostHTTPPort = '"${FRPS_HTTPPORT}"'/g' /frp/frps.toml
+RUN sed -i 's/vhostHTTPSPort = 8443/vhostHTTPSPort = '"${FRPS_HTTPSPORT}"'/g' /frp/frps.toml
 RUN sed -i 's/auth.token = "frp-cloudflare-tunnel"/auth.token = "'${FRPS_AUTHTOKEN}'"/g' /frp/frps.toml
 # 如果开启端口复用
 RUN if [ "${FRPS_BINDPORT}" = "${FRPS_HTTPSPORT}" ]; then \
@@ -59,6 +60,7 @@ EXPOSE 8889
 # 启动supervisor
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
 
 
 
